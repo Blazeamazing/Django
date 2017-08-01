@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Add a student to all bootcamp courses</title>
+</head>
+<body>
+    <h2>Add a new course</h2>
+    <form action="/create" method="post">
+        {% csrf_token %}
+        <label for="">Course</label>
+        <input type="text" name="name">
+        <textarea name="comment" rows="8" cols="40"></textarea>
+        <input type="submit" value="ADD">
+    </form>
+    <h2>Courses</h2>
+    <table>
+        <tr>
+            <th>Course Name</th>
+            <th>Description</th>
+            <th>Date Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for course in courses %}
+            <tr>
+            <td>{{ course.name }}</td>
+            <td>{{ course.comment }}</td>
+            <td>{{ course.created_at }}</td>
+            <td>
+                <form action="/create" method="post">
+                <input type="submit" value="Remove">
+                </form>
+            </td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

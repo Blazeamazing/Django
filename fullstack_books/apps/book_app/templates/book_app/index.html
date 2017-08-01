@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>Index Page</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static '/css/index.css' %}" media="screen" title="no title" charset="utf-8" />
+</head>
+<body>
+<!--for ea thing in 'books' output ea of the attributes we care about-->
+    {% for book in books %}
+        <p>{{ book.title }}</p>
+        <p>{{ book.category }}</p>
+        <p>{{ book.author.name }}</p>
+    {% endfor %}
+    <h1>Add a Book</h1>
+    <form action="/create" method="post">
+    {% csrf_token %} 
+        <label>Title:</label>
+        <input type="text" name="title" />
+
+        <label>Category:</label>
+        <input type="text" name="category" />
+
+        <label>Author:</label>
+        <input type="text" name="name" />
+
+        <input type="submit" name="Submit" />
+    </form>
+</body>
+</html>

@@ -5,6 +5,47 @@
     <title>Index Page</title>
 </head>
 <body>
-    <h1>Blog Home Page</h1>
+    <h1>Hello World</h1>
+    <!--Output all those blogs-->
+    {% for blog in blogs %}
+        <h5>{{blog.title}}</h5>
+        <p>{{blog.blog}}</p>
+<!--Hey let's go get all the comments associated with that particular blog.-->
+    <!--for comment is the object & comment_set is the group of comments.all-->
+        {% for comment in blog.comment_set.all %}
+        <!--so now we are going to print out our comments with: comment.comment which is the actual content-->
+            {{comment.comment}}
+        {% endfor %}
+        <form action="/comments/{{blog.id}}" method = "post">
+            {% csrf_token %}
+            <textarea name="comment" rows="8" cols="40"></textarea>
+            <input type="submit" value="Enter Comment on This Blog">
+        </form>
+    {% endfor %}
+    <!--everytime we create a blog we are going to make these two statments under h1.-->
+    <form action="/blogs" method = "post">
+        {% csrf_token %}
+        <label for="">Title</label>
+        <input type="text" name="title">
+        <textarea name="blog" rows="8" cols="40"></textarea>
+        <input type="submit" value="Enter Blog">
+    </form>
+    <h2>Users</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Age</th>
+  </tr>
+  {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.age }}</td>
+    </tr>
+  {% endfor %}
+</table>
 </body>
 </html>

@@ -1,0 +1,15 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title></title>
+        {% load staticfiles %}
+      <!-- The line above tells Django to be ready to listen for static files -->
+      <link rel="stylesheet" href="{% static 'ourApp/css/main.css' %}" media="screen" title="no title"  charset="utf-8">
+      </head>
+    <body>
+    </body>
+  </html>
+
+  Notes: 
+  In other words, loading static files, whether it's CSS or JavaScript or images, will start the search path inside of ourApp’s static folder, and after that, the rest of that path is up to us! A good habit to get into is separating our JavaScript, CSS, and images into three folders (and specifying which app we are retrieving these files from, as outlined in the structure at the top of this tab!

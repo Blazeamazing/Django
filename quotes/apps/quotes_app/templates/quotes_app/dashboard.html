@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Quotes Dashboard</title>
+    </head>
+    <body>
+        <h1>Welcome, {{ current_user.name }}!</h1>
+        <button><a href="{% url 'logout' %}">Log Out</a></button>
+
+<!--Favorite Quotes-->
+        <h3>Your Favorite Quotes:</h3>
+        {% if wishlist %}
+            <table>
+                <tr>
+                    <th>Quote</th>
+                    <th>Posted By</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+                {% for quote in wishlist %}
+                    <tr>
+                        <td>{{ quote.content }}</a></td>
+                        <td><a href="{% url 'quotes' %}">{{ quote.content }}</td>
+                        <td>{{ quote.created_at }}</td>
+                        <td>
+                            {% if quote.creator == current_user %}
+                                <a href="{% url 'deleteQuote' %}">Delete Quote</a>
+                            {% else %}
+                                <a href="{% url 'removeQuote' %}">Remove Quote</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>You have no quotes.</p>
+        {% endif %}
+        <br>
+<!--All Quotes Not Added to Faves yet-->
+        <h3>Quoteable Quotes:</h3>
+        {% if posted_by %}
+            <table>
+                <tr>
+                    <th>Quote</th>
+                    <th>Posted By</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+                {% for quotes in posted_by %}
+                    <tr>
+                        <td>{{ quote.quoted_by }}</td>
+                        <td>{{ quote.creator.content }}</td>
+                        <td>{{ quote.created_at }}</td>
+                        <button><a href="{% url 'addQuote' id=posted_by.id %}">Add To My Favorites</a></button>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>There are no other quotes at this time.</p>
+        {% endif %}
+        <br>
+<!--Create New Quote-->
+        <h1>Create New Quote Here:</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <tr>
+            <form action="{% url 'create' %}" method="POST">
+                {% csrf_token %}
+                <td><label for="quote">Quoted By:<input type="text" name="quote"></label></td>
+                <td><textarea name="message" rows="8" cols="40"></textarea></td>
+                <td><input type="submit" value="Submit"></td>
+            </form>
+        </tr>
+    </body>
+</html>

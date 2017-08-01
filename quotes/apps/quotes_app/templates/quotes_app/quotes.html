@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Quotes</title>
+    </head>
+    <body>
+        <button><a href="{% url 'dashboard' %}">Dashboard</a></button>
+        <button><a href="{% url 'logout' %}">Log Out</a></button>
+        <h1>Quotes Posted By:</h1>
+<!--Show all posts by this creator-->
+        <tr>
+            <td><p>Number of Posts: {{ quote.num_posts }}</p></td>
+            <td>{{ quote.creator }}</a></td>
+            <td>{{ quote.content }}</td>
+            <td>{{ quote.created_at }}</td>
+        </tr>
+    </body>
+</html>
